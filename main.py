@@ -9,7 +9,8 @@ from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 from usda_client import search_usda_food,extract_usda_macros
 from langchain_google_genai import ChatGoogleGenerativeAI
-from calibration import decide, apply_coupling_mode
+from calibration import decide, apply_coupling_mode, pct_diff
+import calibration
 
 
 # ENV
@@ -61,22 +62,13 @@ structured_model = model.with_structured_output(Meal)
 
 # AI-4.7 ENGINE (NO TRACE IN JSON)
 
-
-def pct_diff(a, b):
-    """Calculate percentage difference - deprecated, use calibration.pct_diff"""
-    if a == 0:
-        return 1.0 if b else 0.0
-    return abs(a - b) / a
+# Note: pct_diff and decide are now imported from calibration.py
+# These wrappers are deprecated but kept for backward compatibility
 
 
 def decide(llm, usda, threshold=0.25):
     """Deprecated: use calibration.decide() instead"""
-    if usda is None:
-        return llm, "llm", "usda_missing"
-
-    if pct_diff(llm, usda) <= threshold:
-        return usda, "usda", "within_25%"
-    return llm, "llm", "deviation_too_high"
+    return calibration.decide(llm, usda, threshold)
 
 
 
