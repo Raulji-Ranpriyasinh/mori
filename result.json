@@ -1,23 +1,24 @@
 {
-  "description": "A traditional Indian thali meal served on a brass plate, featuring a variety of dishes including white rice, paratha, a green flatbread, two types of curry (one potato-based, one chicken-based), a mixed nut and fruit side dish, green beans with almonds, and two vegetable fritters.",
-  "eaten_at": "2026-06-02T06:16:17.683841+00:00",
+  "description": "A traditional Indian thali featuring white rice, paratha, a savory green pancake, two types of curry (vegetable and chicken), a peanut and dried fruit chutney, green beans, and fried fritters.",
+  "eaten_at": "2026-06-02T07:29:21.701801+00:00",
   "photo_ref": "photo_xyz123",
   "portion_hint": "normal",
   "parse_confidence": 0.9,
   "caveats": [
-    "Specific ingredients in curries and fried items are estimated.",
-    "Nutritional values are approximate and can vary based on preparation methods and exact recipes."
+    "Specific ingredients in curries are assumed based on visual cues.",
+    "Exact preparation methods and oil content may vary, affecting macronutrient values.",
+    "The savory green pancake could be a specific regional dish, and its exact composition is an estimate."
   ],
   "components": [
     {
       "name": "White Rice",
       "grams": 200.0,
       "carbs_g": {
-        "value": 52.0,
+        "value": 56.0,
         "source": "llm"
       },
       "protein_g": {
-        "value": 4.4,
+        "value": 5.4,
         "source": "llm"
       },
       "fat_g": {
@@ -25,79 +26,79 @@
         "source": "llm"
       },
       "fiber_g": {
-        "value": 0.6,
+        "value": 0.8,
         "source": "llm"
       }
     },
     {
       "name": "Paratha",
-      "grams": 120.0,
-      "carbs_g": {
-        "value": 54.42,
-        "source": "usda"
-      },
-      "protein_g": {
-        "value": 7.632,
-        "source": "usda"
-      },
-      "fat_g": {
-        "value": 15.839999999999998,
-        "source": "usda"
-      },
-      "fiber_g": {
-        "value": 3.0,
-        "source": "llm"
-      }
-    },
-    {
-      "name": "Palak Paratha",
-      "grams": 100.0,
-      "carbs_g": {
-        "value": 45.35,
-        "source": "usda"
-      },
-      "protein_g": {
-        "value": 6.36,
-        "source": "usda"
-      },
-      "fat_g": {
-        "value": 13.2,
-        "source": "usda"
-      },
-      "fiber_g": {
-        "value": 4.0,
-        "source": "llm"
-      }
-    },
-    {
-      "name": "Potato Curry",
       "grams": 150.0,
       "carbs_g": {
-        "value": 20.0,
+        "value": 68.025,
+        "source": "usda"
+      },
+      "protein_g": {
+        "value": 9.540000000000001,
+        "source": "usda"
+      },
+      "fat_g": {
+        "value": 15.0,
+        "source": "llm"
+      },
+      "fiber_g": {
+        "value": 4.5,
+        "source": "llm"
+      }
+    },
+    {
+      "name": "Savory Green Pancake",
+      "grams": 120.0,
+      "carbs_g": {
+        "value": 30.0,
         "source": "llm"
       },
       "protein_g": {
-        "value": 5.0,
+        "value": 9.6,
         "source": "llm"
       },
       "fat_g": {
-        "value": 9.855,
-        "source": "usda"
+        "value": 9.6,
+        "source": "llm"
       },
       "fiber_g": {
-        "value": 3.0,
+        "value": 3.6,
         "source": "llm"
+      }
+    },
+    {
+      "name": "Vegetable Curry",
+      "grams": 150.0,
+      "carbs_g": {
+        "value": 22.5,
+        "source": "llm"
+      },
+      "protein_g": {
+        "value": 4.5,
+        "source": "llm"
+      },
+      "fat_g": {
+        "value": 12.0,
+        "source": "llm"
+      },
+      "fiber_g": {
+        "value": 2.7,
+        "source": "usda"
       }
     },
     {
       "name": "Chicken Curry",
       "grams": 150.0,
       "carbs_g": {
-        "value": 9.81,
-        "source": "usda"
+        "value": 7.5,
+        "source": "llm"
       },
       "protein_g": {
-        "value": 25.0,
+        "value": 22.5,
         "source": "llm"
       },
       "fat_g": {
@@ -105,43 +106,23 @@
         "source": "llm"
       },
       "fiber_g": {
-        "value": 2.0999999999999996,
-        "source": "usda"
+        "value": 1.5,
+        "source": "llm"
       }
     },
     {
-      "name": "Mixed Nut and Fruit Chutney",
+      "name": "Peanut and Dried Fruit Chutney",
       "grams": 80.0,
       "carbs_g": {
-        "value": 25.0,
+        "value": 24.0,
         "source": "llm"
       },
       "protein_g": {
-        "value": 5.0,
+        "value": 12.0,
         "source": "llm"
       },
       "fat_g": {
-        "value": 10.0,
-        "source": "llm"
-      },
-      "fiber_g": {
-        "value": 3.0,
-        "source": "llm"
-      }
-    },
-    {
-      "name": "Green Beans with Almonds",
-      "grams": 100.0,
-      "carbs_g": {
-        "value": 10.0,
-        "source": "llm"
-      },
-      "protein_g": {
-        "value": 3.0,
-        "source": "llm"
-      },
-      "fat_g": {
-        "value": 5.0,
+        "value": 20.0,
         "source": "llm"
       },
       "fiber_g": {
@@ -150,31 +131,51 @@
       }
     },
     {
-      "name": "Vegetable Fritters",
+      "name": "Green Beans",
+      "grams": 100.0,
+      "carbs_g": {
+        "value": 7.0,
+        "source": "llm"
+      },
+      "protein_g": {
+        "value": 3.0,
+        "source": "llm"
+      },
+      "fat_g": {
+        "value": 3.0,
+        "source": "llm"
+      },
+      "fiber_g": {
+        "value": 3.0,
+        "source": "llm"
+      }
+    },
+    {
+      "name": "Fried Fritters",
       "grams": 60.0,
       "carbs_g": {
         "value": 20.13,
         "source": "usda"
       },
       "protein_g": {
-        "value": 4.422,
-        "source": "usda"
+        "value": 3.0,
+        "source": "llm"
       },
       "fat_g": {
-        "value": 16.284,
-        "source": "usda"
+        "value": 12.0,
+        "source": "llm"
       },
       "fiber_g": {
-        "value": 2.0,
-        "source": "llm"
+        "value": 0.96,
+        "source": "usda"
       }
     }
   ],
   "totals": {
-    "carbs_g": 236.71,
-    "protein_g": 60.81399999999999,
-    "fat_g": 85.779,
-    "fiber_g": 21.7,
+    "carbs_g": 235.155,
+    "protein_g": 69.53999999999999,
+    "fat_g": 87.2,
+    "fiber_g": 21.060000000000002,
     "gl": 0.0
   }
 }
