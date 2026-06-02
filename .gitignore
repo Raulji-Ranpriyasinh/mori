@@ -1,4 +1,12 @@
 ```
-__pycache__/
+# Compiled Python files
 *.pyc
+__pycache__/
+
+# Environment files
+.env
+
+# Logs and temporary files
+*.log
+*.tmp
 ```

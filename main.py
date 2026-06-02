@@ -12,14 +12,16 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from calibration import decide, apply_coupling_mode, pct_diff
 import calibration
 
-
-# ENV
-
-
+# Load environment variables from .env file
 load_dotenv()
 
 USDA_API_KEY = os.getenv("USDA_API")
 USDA_BASE_URL = "https://api.nal.usda.gov/fdc/v1"
+
+# LangSmith configuration
+LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")
+LANGSMITH_PROJECT = os.getenv("LANGSMITH_PROJECT", "food-calibration")
+LANGSMITH_TRACING = os.getenv("LANGSMITH_TRACING", "false").lower() == "true"
 
 model = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash",
@@ -95,16 +97,68 @@ Ensure food names are CLEAN (no cooked/raw/fried annotations).
 
 
 
-# TRACE (SEPARATE - NO JSON IN OUTPUT)
+import os
+import json
+from datetime import datetime, timezone
+from langsmith import Client, traceable
+
+# Initialize LangSmith client with credentials from environment (use module-level vars)
+_langsmith_client = Client(api_key=LANGSMITH_API_KEY) if LANGSMITH_API_KEY else None
 
 
-def log_langsmith_trace(decisions: list):
-    # replace with real LangSmith client in production
-    print("\n[LangSmith] food.calibrate")
-    print(json.dumps({
+# TRACE (PRODUCTION - LANGSMITH INTEGRATION)
+
+
+@traceable(
+    name="food.calibrate",
+    run_type="tool",
+    project_name=LANGSMITH_PROJECT,
+    metadata={
         "rule": "AI-4.7_soft_coupling",
+        "description": "Soft-coupling calibration between LLM estimates and USDA data"
+    }
+)
+def log_langsmith_trace(decisions: list):
+    """
+    Log calibration decisions to LangSmith for observability and audit.
+    
+    Each decision includes:
+    - component: food component name
+    - macro: which macro nutrient (carbs_g, protein_g, fat_g, fiber_g)
+    - llm: original LLM estimate
+    - usda: USDA reference value (if available)
+    - final: chosen final value
+    - source: provenance ('llm' | 'usda')
+    - reason: explanation of the decision
+    - flagged: True if disagreement >25% (for review)
+    """
+    if not _langsmith_client or not LANGSMITH_TRACING:
+        # Fallback: log to console in development mode
+        print("\n[LangSmith] food.calibrate (tracing disabled or no API key)")
+        print(json.dumps({
+            "rule": "AI-4.7_soft_coupling",
+            "decisions": decisions
+        }, indent=2))
+        return
+    
+    # Prepare metadata for LangSmith
+    flagged_count = sum(1 for d in decisions if d.get("flagged", False))
+    usda_count = sum(1 for d in decisions if d.get("source") == "usda")
+    llm_count = sum(1 for d in decisions if d.get("source") == "llm")
+    
+    # Log the trace with structured outputs
+    outputs = {
+        "total_decisions": len(decisions),
+        "usda_adopted": usda_count,
+        "llm_retained": llm_count,
+        "flagged_for_review": flagged_count,
+        "calibration_rate": round(usda_count / len(decisions) * 100, 1) if decisions else 0,
         "decisions": decisions
-    }, indent=2))
+    }
+    
+    # The @traceable decorator handles sending to LangSmith
+    # This function body executes as part of the traced run
+    return outputs
 
 
 
@@ -146,10 +200,10 @@ def process_image(image_path: str, photo_ref: str = None):
         }
 
         for m in ["carbs_g", "protein_g", "fat_g", "fiber_g"]:
-            val, src, reason = decide(
-                getattr(c, m),
-                usda_macros[m] if usda_macros else None
-            )
+            llm_val = getattr(c, m)
+            usda_val = usda_macros[m] if usda_macros else None
+            
+            val, src, reason = decide(llm_val, usda_val)
 
             comp_out[m] = {
                 "value": val,
@@ -158,14 +212,21 @@ def process_image(image_path: str, photo_ref: str = None):
 
             totals[m] += val
 
+            # Flag for review if disagreement >25% (using same formula as decide())
+            flagged = False
+            if llm_val is not None and llm_val > 0 and usda_val is not None:
+                deviation = abs(llm_val - usda_val) / llm_val
+                flagged = deviation > 0.25
+
             trace_decisions.append({
                 "component": c.name,
                 "macro": m,
-                "llm": getattr(c, m),
-                "usda": usda_macros[m] if usda_macros else None,
+                "llm": llm_val,
+                "usda": usda_val,
                 "final": val,
                 "source": src,
-                "reason": reason
+                "reason": reason,
+                "flagged": flagged
             })
 
         final_components.append(comp_out)
