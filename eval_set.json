@@ -1,0 +1,201 @@
+{
+  "description": "Evaluation dataset for AI-4.5 calibration verification",
+  "purpose": "Verify that calibration is applied to ≥70% of identified components",
+  "components": [
+    {
+      "id": "eval_001",
+      "food_name": "white rice",
+      "llm_macros": {
+        "carbs_g": 28.0,
+        "protein_g": 2.7,
+        "fat_g": 0.3,
+        "fiber_g": 0.4
+      },
+      "grams": 100,
+      "expected_usda_match": true,
+      "notes": "Standard staple food, should match USDA closely"
+    },
+    {
+      "id": "eval_002",
+      "food_name": "grilled chicken breast",
+      "llm_macros": {
+        "carbs_g": 0.0,
+        "protein_g": 31.0,
+        "fat_g": 3.6,
+        "fiber_g": 0.0
+      },
+      "grams": 100,
+      "expected_usda_match": true,
+      "notes": "Common protein source"
+    },
+    {
+      "id": "eval_003",
+      "food_name": "avocado",
+      "llm_macros": {
+        "carbs_g": 9.0,
+        "protein_g": 2.0,
+        "fat_g": 15.0,
+        "fiber_g": 7.0
+      },
+      "grams": 100,
+      "expected_usda_match": true,
+      "notes": "High fat fruit, distinctive macros"
+    },
+    {
+      "id": "eval_004",
+      "food_name": "salmon fillet",
+      "llm_macros": {
+        "carbs_g": 0.0,
+        "protein_g": 25.0,
+        "fat_g": 13.0,
+        "fiber_g": 0.0
+      },
+      "grams": 100,
+      "expected_usda_match": true,
+      "notes": "Fatty fish"
+    },
+    {
+      "id": "eval_005",
+      "food_name": "broccoli",
+      "llm_macros": {
+        "carbs_g": 7.0,
+        "protein_g": 2.8,
+        "fat_g": 0.4,
+        "fiber_g": 2.6
+      },
+      "grams": 100,
+      "expected_usda_match": true,
+      "notes": "Common vegetable"
+    },
+    {
+      "id": "eval_006",
+      "food_name": "sweet potato",
+      "llm_macros": {
+        "carbs_g": 20.0,
+        "protein_g": 1.6,
+        "fat_g": 0.1,
+        "fiber_g": 3.0
+      },
+      "grams": 100,
+      "expected_usda_match": true,
+      "notes": "Starchy vegetable"
+    },
+    {
+      "id": "eval_007",
+      "food_name": "egg",
+      "llm_macros": {
+        "carbs_g": 0.6,
+        "protein_g": 13.0,
+        "fat_g": 11.0,
+        "fiber_g": 0.0
+      },
+      "grams": 100,
+      "expected_usda_match": true,
+      "notes": "Whole egg, approximately 2 large eggs"
+    },
+    {
+      "id": "eval_008",
+      "food_name": "olive oil",
+      "llm_macros": {
+        "carbs_g": 0.0,
+        "protein_g": 0.0,
+        "fat_g": 100.0,
+        "fiber_g": 0.0
+      },
+      "grams": 100,
+      "expected_usda_match": true,
+      "notes": "Pure fat"
+    },
+    {
+      "id": "eval_009",
+      "food_name": "grandmas special lasagna",
+      "llm_macros": {
+        "carbs_g": 35.0,
+        "protein_g": 18.0,
+        "fat_g": 25.0,
+        "fiber_g": 3.0
+      },
+      "grams": 100,
+      "expected_usda_match": false,
+      "notes": "Non-standard preparation, likely to deviate >25%"
+    },
+    {
+      "id": "eval_010",
+      "food_name": "street style tacos",
+      "llm_macros": {
+        "carbs_g": 22.0,
+        "protein_g": 15.0,
+        "fat_g": 18.0,
+        "fiber_g": 2.5
+      },
+      "grams": 100,
+      "expected_usda_match": false,
+      "notes": "Mixed dish with variable preparation"
+    },
+    {
+      "id": "eval_011",
+      "food_name": "banana",
+      "llm_macros": {
+        "carbs_g": 23.0,
+        "protein_g": 1.1,
+        "fat_g": 0.3,
+        "fiber_g": 2.6
+      },
+      "grams": 100,
+      "expected_usda_match": true,
+      "notes": "Common fruit"
+    },
+    {
+      "id": "eval_012",
+      "food_name": "almonds",
+      "llm_macros": {
+        "carbs_g": 22.0,
+        "protein_g": 21.0,
+        "fat_g": 50.0,
+        "fiber_g": 12.0
+      },
+      "grams": 100,
+      "expected_usda_match": true,
+      "notes": "Tree nuts"
+    },
+    {
+      "id": "eval_013",
+      "food_name": "greek yogurt",
+      "llm_macros": {
+        "carbs_g": 3.6,
+        "protein_g": 10.0,
+        "fat_g": 0.4,
+        "fiber_g": 0.0
+      },
+      "grams": 100,
+      "expected_usda_match": true,
+      "notes": "Plain non-fat Greek yogurt"
+    },
+    {
+      "id": "eval_014",
+      "food_name": "quinoa",
+      "llm_macros": {
+        "carbs_g": 21.0,
+        "protein_g": 4.4,
+        "fat_g": 1.9,
+        "fiber_g": 2.8
+      },
+      "grams": 100,
+      "expected_usda_match": true,
+      "notes": "Cooked quinoa"
+    },
+    {
+      "id": "eval_015",
+      "food_name": "tofu",
+      "llm_macros": {
+        "carbs_g": 1.9,
+        "protein_g": 8.0,
+        "fat_g": 4.8,
+        "fiber_g": 0.3
+      },
+      "grams": 100,
+      "expected_usda_match": true,
+      "notes": "Firm tofu"
+    }
+  ]
+}
